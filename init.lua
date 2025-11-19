@@ -1,4 +1,3 @@
-
 local loadonscreen = not game:IsLoaded()
 
 repeat
@@ -6,7 +5,7 @@ repeat
 until game:IsLoaded()
 
 if loadonscreen then
-    task.wait(0.5)
+    task.wait(0.5)
 end
 
 if shared.vape then
@@ -14,12 +13,12 @@ if shared.vape then
 end
 
 local license = ({...})[1] or {}
-local developer = getgenv().catvapedev or license.Developer or false
+local developer = getgenv().kaydenvapedev or license.Developer or false
 local closet = getgenv().closet or license.Closet or false
 
 getgenv().username = username or license.Username
 getgenv().password = password or license.Password
-getgenv().catuser = getgenv().username
+getgenv().kaydenuser = getgenv().username
 
 local cloneref = cloneref or function(ref) return ref end
 local gethui = gethui or function() return game:GetService('Players').LocalPlayer.PlayerGui end
@@ -205,20 +204,20 @@ end
 local httpService = cloneref(game:GetService('HttpService'))
 
 local success, commitdata = pcall(function()
-    local commitinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/commits'))[1]
-    if commitinfo and type(commitinfo) == 'table' then
-        local fullinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/commits/'.. commitinfo.sha))
-        fullinfo.hash = commitinfo.sha:sub(1, 7)
-        return fullinfo
-    end
+    local commitinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/Muzzz-scripts/catV5/commits'))[1]
+    if commitinfo and type(commitinfo) == 'table' then
+        local fullinfo = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/Muzzz-scripts/catV5/commits/'.. commitinfo.sha))
+        fullinfo.hash = commitinfo.sha:sub(1, 7)
+        return fullinfo
+    end
 end)
 
 if not success or typeof(commitdata) ~= 'table' or commitdata.sha == nil then
 	commitdata = {sha = 'main', files = {}}
 end
 
-if not isfile('catreset67') and not closet and isfolder('catrewrite') and not developer then
-	for _, v in listfiles('catrewrite') do
+if not isfile('kaydenreset67') and not closet and isfolder('kaydenrewrite') and not developer then
+	for _, v in listfiles('kaydenrewrite') do
 		if not v:find('assets') then
 			pcall(delfile, v)
 			pcall(delfolder, v)
@@ -226,7 +225,7 @@ if not isfile('catreset67') and not closet and isfolder('catrewrite') and not de
 	end
 end
 
-writefile('catreset67', 'True')
+writefile('kaydenreset67', 'True')
 
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
@@ -241,9 +240,9 @@ end
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
-			local subbed = path:gsub('catrewrite/', '')
+			local subbed = path:gsub('kaydenrewrite/', '')
 			subbed = subbed:gsub(' ', '%%20')
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..subbed, true)
+			return game:HttpGet('https://raw.githubusercontent.com/Muzzz-scripts/catV5/'..readfile('kaydenrewrite/profiles/commit.txt')..'/'..subbed, true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -264,13 +263,13 @@ local function wipeFolder(path)
 			delfile(file)
 		end
 	end
-end 
+end 
 
 makestage(1, 'Downloading packages')
 
-for _, folder in {'catrewrite', 'catrewrite/communication', 'catrewrite/games', 'catrewrite/games/bedwars', 'catrewrite/profiles', 'catrewrite/assets', 'catrewrite/libraries', 'catrewrite/libraries/Enviroments', 'catrewrite/guis', 'catrewrite/libraries/Weather', 'catrewrite/libraries/LightningLib', 'catrewrite/libraries/LightningLib/Sparks'} do
+for _, folder in {'kaydenrewrite', 'kaydenrewrite/communication', 'kaydenrewrite/games', 'kaydenrewrite/games/bedwars', 'kaydenrewrite/profiles', 'kaydenrewrite/assets', 'kaydenrewrite/libraries', 'kaydenrewrite/libraries/Enviroments', 'kaydenrewrite/guis', 'kaydenrewrite/libraries/Weather', 'kaydenrewrite/libraries/LightningLib', 'kaydenrewrite/libraries/LightningLib/Sparks'} do
 	if not isfolder(folder) then
-		makestage(1, `Downloading packages\n({folder:gsub('catrewrite', '')})`)
+		makestage(1, `Downloading packages\n({folder:gsub('kaydenrewrite', '')})`)
 		makefolder(folder)
 	end
 end
@@ -282,21 +281,21 @@ if table.find({'macsploit', 'hydrogen'}, ({identifyexecutor()})[1]:lower()) then
 	getgenv().setfflag = nil
 end
 
-if not isfolder('catrewrite') or #listfiles('catrewrite') <= 6 or not isfolder('catrewrite/profiles') or not isfile('catrewrite/profiles/commit.txt') then
-    makefolder('catrewrite/profiles')
-    writefile('catrewrite/profiles/commit.txt', commitdata.sha)
+if not isfolder('kaydenrewrite') or #listfiles('kaydenrewrite') <= 6 or not isfolder('kaydenrewrite/profiles') or not isfile('kaydenrewrite/profiles/commit.txt') then
+    makefolder('kaydenrewrite/profiles')
+    writefile('kaydenrewrite/profiles/commit.txt', commitdata.sha)
 	if not assexecutorhurtsmybutt then
- 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/profiles'))
+ 		local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/Muzzz-scripts/catV5/contents/profiles'))
 		for _, v in req do
 			if v.path ~= 'profiles/commit.txt' then
 				makestage(2, `Downloading required files\n({v.path})`)
-				downloadFile(`catrewrite/{v.path}`)
+				downloadFile(`kaydenrewrite/{v.path}`)
 			end
 		end
 		task.spawn(function()
-			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/new-qwertyui/CatV5/contents/translations'))
+			local req = httpService:JSONDecode(game:HttpGet('https://api.github.com/repos/Muzzz-scripts/catV5/contents/translations'))
 			for _, v in req do
-				downloadFile(`catrewrite/{v.path}`)
+				downloadFile(`kaydenrewrite/{v.path}`)
 			end
 		end)
 	end
@@ -304,23 +303,23 @@ end
 
 shared.VapeDeveloper = developer
 getgenv().used_init = true
-getgenv().catvapedev = developer
+getgenv().kaydenvapedev = developer
 getgenv().closet = closet
 
 if not shared.VapeDeveloper then
 	local commit = commitdata.sha or 'main'
-	if commit == 'main' or (isfile('catrewrite/profiles/commit.txt') and readfile('catrewrite/profiles/commit.txt') or '') ~= commit then
-		wipeFolder('catrewrite')
-		wipeFolder('catrewrite/games')
-		wipeFolder('catrewrite/guis')
-		wipeFolder('catrewrite/libraries')
+	if commit == 'main' or (isfile('kaydenrewrite/profiles/commit.txt') and readfile('kaydenrewrite/profiles/commit.txt') or '') ~= commit then
+		wipeFolder('kaydenrewrite')
+		wipeFolder('kaydenrewrite/games')
+		wipeFolder('kaydenrewrite/guis')
+		wipeFolder('kaydenrewrite/libraries')
 	end
-    writefile('catrewrite/cheaters.json', '{}')
-	writefile('catrewrite/profiles/commit.txt', commit)
+    writefile('kaydenrewrite/cheaters.json', '{}')
+	writefile('kaydenrewrite/profiles/commit.txt', commit)
 end
 
 local success, err = pcall(function()
-	loadstring(downloadFile('catrewrite/main.lua'), 'main')()
+	loadstring(downloadFile('kaydenrewrite/main.lua'), 'main')()
 end)
 
 for _, v in gui:GetDescendants() do
@@ -334,7 +333,7 @@ for _, v in gui:GetDescendants() do
 end
 
 if not success then
-	error('Failed to initalize catvape: '.. err, 8)
+	error('Failed to initalize kaydenvape: '.. err, 8)
 elseif not closet then
-	loadstring(downloadFile('catrewrite/libraries/annc.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+	loadstring(downloadFile('kaydenrewrite/libraries/annc.lua'), 'announcements.lua')() -- WHYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 end
