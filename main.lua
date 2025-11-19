@@ -23,7 +23,7 @@ local playersService = cloneref(game:GetService('Players'))
 local function downloadFile(path, func)
 	if not isfile(path) or not shared.VapeDeveloper then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/Muzzz-scripts/catV5/'..readfile('kaydenrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('kaydenrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -52,12 +52,12 @@ local function finishLoading()
 			teleportedServers = true
 			local teleportScript = [[
 				shared.vapereload = true
-				loadstring(game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/main/init.lua'), 'init.lua')()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Muzzz-scripts/catV5/main/init.lua'), 'init.lua')()
 			]]
-			if getgenv().catvapedev then
-				teleportScript = 'getgenv().catvapedev = true\n'.. [[
+			if getgenv().kaydenvapedev then
+				teleportScript = 'getgenv().kaydenvapedev = true\n'.. [[
 					shared.vapereload = true
-					loadstring(readfile('catrewrite/init.lua'), 'init.lua')()
+					loadstring(readfile('kaydenrewrite/init.lua'), 'init.lua')()
 				]]
 			end
 			if shared.VapeDeveloper then
@@ -87,11 +87,11 @@ local function finishLoading()
 			if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 				vape:CreateNotification('Finished Loading', vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press '..table.concat(vape.Keybind, ' + '):upper()..' to open GUI', 3)
 				task.wait(3.5)
-				vape:CreateNotification('Cat', `Initialized as {(catuser or 'Guest')} with role {catrole or 'Basic'}`, 2.5, 'info')
+				vape:CreateNotification('Kayden', `Initialized as {(kaydenuser or 'Guest')} with role {kaydenrole or 'Basic'}`, 2.5, 'info')
 				task.wait(1)
-				if not isfile('newusercat2') then
-					vape:CreateNotification('Cat', 'You have been redirected to cat\'s discord server', 3, 'warning')
-					writefile('newusercat2', 'True')
+				if not isfile('newuserkayden2') then
+					vape:CreateNotification('Kayden', 'You have been redirected to Kayden\'s discord server', 3, 'warning')
+					writefile('newuserkayden2', 'True')
 					request({
 						Url = 'http://127.0.0.1:6463/rpc?v=1',
 						Method = 'POST',
@@ -100,10 +100,10 @@ local function finishLoading()
 							Origin = 'https://discord.com'
 						},
 						Body = cloneref(game:GetService('HttpService')):JSONEncode({
-							invlink = 'catvape',
+							invlink = 'kaydenvape',
 							cmd = 'INVITE_BROWSER',
 							args = {
-								code = 'catvape'
+								code = 'kaydenvape'
 							},
 							nonce = cloneref(game:GetService('HttpService')):GenerateGUID(true)
 						})
@@ -114,45 +114,45 @@ local function finishLoading()
 	end
 end
 
-if not isfile('catrewrite/profiles/gui.txt') then
-	writefile('catrewrite/profiles/gui.txt', 'new')
+if not isfile('kaydenrewrite/profiles/gui.txt') then
+	writefile('kaydenrewrite/profiles/gui.txt', 'new')
 end
-local gui = readfile('catrewrite/profiles/gui.txt')
+local gui = readfile('kaydenrewrite/profiles/gui.txt')
 
 if gui == nil or gui == '' or not table.find({'rise', 'new', 'old'}, gui) then
 	gui = 'new'
 end
 
-if not isfolder('catrewrite/assets/'..gui) then
-	makefolder('catrewrite/assets/'..gui)
+if not isfolder('kaydenrewrite/assets/'..gui) then
+	makefolder('kaydenrewrite/assets/'..gui)
 end
 
 if shared.vape then
 	shared.vape:Uninject()
 end
 
-vape = loadstring(downloadFile('catrewrite/guis/'..gui..'.lua'), 'gui')()
+vape = loadstring(downloadFile('kaydenrewrite/guis/'..gui..'.lua'), 'gui')()
 shared.vape = vape
 
 if not shared.VapeIndependent then
 	makestage(3, 'Downloading game packages')
-	loadstring(downloadFile('catrewrite/games/universal.lua'), 'universal')()
-	shared.vape.Libraries.Cat = true
+	loadstring(downloadFile('kaydenrewrite/games/universal.lua'), 'universal')()
+	shared.vape.Libraries.Kayden = true
 	makestage(4, 'Loading all packages')
-	loadstring(downloadFile('catrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
-	if isfile('catrewrite/games/'..game.PlaceId..'.lua') then
-		loadstring(readfile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+	loadstring(downloadFile('kaydenrewrite/libraries/whitelist.lua'), 'whitelist.lua')()
+	if isfile('kaydenrewrite/games/'..game.PlaceId..'.lua') then
+		loadstring(readfile('kaydenrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 	else
 		if not shared.VapeDeveloper then
 			local suc, res = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/new-qwertyui/CatV5/'..readfile('catrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
+				return game:HttpGet('https://raw.githubusercontent.com/Muzzz-scripts/catV5/'..readfile('kaydenrewrite/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
 			end)
 			if suc and res ~= '404: Not Found' then
-				loadstring(downloadFile('catrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
+				loadstring(downloadFile('kaydenrewrite/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
 			end
 		end
 	end
-	loadstring(downloadFile('catrewrite/games/bedwars/modules.luau'), 'modules.luau')()
+	loadstring(downloadFile('kaydenrewrite/games/bedwars/modules.luau'), 'modules.luau')()
 	finishLoading()
 else
 	vape.Init = finishLoading
